@@ -4,7 +4,7 @@
 
 ``` js
 
-md5('string');
+__md5('string');
 
 ```
 

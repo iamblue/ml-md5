@@ -21,12 +21,17 @@
 //     return str_buffer;
 // }
 
-DELCARE_HANDLER(md5) {
+DELCARE_HANDLER(__md5) {
   if (args_cnt == 1 && args_p[0].type == JERRY_API_DATA_TYPE_STRING) {
 
-    int value_req_sz = jerry_api_string_to_char_buffer(args_p[0].v_string, NULL, 0);
-    value_req_sz *= -1;
-    char value_buffer [value_req_sz+1]; // 不能有*
+    // int value_req_sz = jerry_api_string_to_char_buffer(args_p[0].v_string, NULL, 0);
+    // value_req_sz *= -1;
+    // char value_buffer [value_req_sz+1]; // 不能有*
+    // value_req_sz = jerry_api_string_to_char_buffer (args_p[0].v_string, (jerry_api_char_t *) value_buffer, value_req_sz);
+    // value_buffer[value_req_sz] = '\0';
+
+    int value_req_sz = -jerry_api_string_to_char_buffer(args_p[0].v_string, NULL, 0);
+    char * value_buffer = (char*) malloc (value_req_sz);
     value_req_sz = jerry_api_string_to_char_buffer (args_p[0].v_string, (jerry_api_char_t *) value_buffer, value_req_sz);
     value_buffer[value_req_sz] = '\0';
 
@@ -52,11 +57,11 @@ DELCARE_HANDLER(md5) {
     jerry_api_string_t *result = jerry_api_create_string(str_buffer);
     ret_val_p->type = JERRY_API_DATA_TYPE_STRING;
     ret_val_p->v_string = result;
-
+    free(value_buffer);
     return true;
   }
 }
 
 void ml_md5_init(void) {
-  REGISTER_HANDLER(md5);
+  REGISTER_HANDLER(__md5);
 }
