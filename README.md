@@ -4,7 +4,7 @@
 
 ``` js
 
-__md5('string');
+md5('string');
 
 ```
 
@@ -12,6 +12,6 @@ __md5('string');
 
 ``` js
 
-print('md5:' + __md5('abcdefghijklmnopqrstwxyz1234567'));
+print('md5:' + md5('abcdefghijklmnopqrstwxyz1234567'));
 
 ```
