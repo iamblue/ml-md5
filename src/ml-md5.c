@@ -7,8 +7,7 @@
 DELCARE_HANDLER(__md5) {
   char str_buffer [50];
   if (args_cnt == 1 && jerry_value_is_string(args_p[0])) {
-
-    jerry_size_t value_req_sz = jerry_get_string_size (args_p[0]);
+    jerry_size_t value_req_sz = jerry_get_string_size(args_p[0]);
     jerry_char_t value_buffer[value_req_sz];
     jerry_string_to_char_buffer (args_p[0], value_buffer, value_req_sz);
     value_buffer[value_req_sz] = '\0';
@@ -30,7 +29,6 @@ DELCARE_HANDLER(__md5) {
       sprintf (buffer, "%02x", digest[i]);
       strcat(str_buffer, buffer);
     }
-    free(value_buffer);
   }
   return jerry_create_string(str_buffer);
 }
